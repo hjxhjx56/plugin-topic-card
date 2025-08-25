@@ -1,0 +1,135 @@
+<th:block>
+  <style>
+    .topic-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+    @media (min-width:768px){.topic-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+    @media (min-width:1280px){.topic-grid{grid-template-columns:repeat(6,minmax(0,1fr))}}
+    .topic-card{
+      position:relative;
+      overflow:hidden;
+      border-radius:12px;
+      background:#111827;
+      cursor:pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 2px solid #ffffff;
+      box-shadow: none;
+    }
+    
+    .topic-card:hover {
+      transform: translateY(-4px) scale(1.02);
+      border-color: #3b82f6;
+      box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
+    }
+    
+    .card-image-wrapper{position:relative;aspect-ratio:2/1}
+    .card-image{width:100%;height:100%;object-fit:cover;display:block;transition: transform 0.3s ease}
+    .topic-card:hover .card-image {
+      transform: scale(1.05);
+    }
+    .image-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 30%, rgba(0,0,0,.65) 100%)}
+    .card-content{position:absolute;left:0;right:0;bottom:0;padding:12px 14px;color:#fff;display:flex;align-items:center;justify-content:space-between}
+    .card-title{font-size:16px;font-weight:600;line-height:1.2;margin:0;color:#fff !important;transition: color 0.3s ease}
+    .article-count{font-size:12px;opacity:.85;transition: opacity 0.3s ease}
+    
+    .topic-card:hover .card-title {
+      color: #60a5fa !important;
+    }
+    
+    .topic-card:hover .article-count {
+      opacity: 1;
+    }
+    
+    /* 专题卡片与分类导航栏之间的间距 */
+    .topic-card-spacing {
+      margin-bottom: 20px;
+    }
+    
+    
+    /* 热门专题模块样式 */
+    .topic-section-container {
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      padding: 20px 20px 0px 20px;
+      margin-top: 30px;
+      margin-bottom: 20px;
+      border: 1px solid #f0f0f0;
+      transition: all 0.3s ease;
+    }
+    
+    .topic-section-container:hover {
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+      border-color: #e5e7eb;
+    }
+    
+    /* 暗色主题适配 */
+    [data-theme="dark"] .topic-section-container {
+      background: #1a1a1a;
+      border: 1px solid #333333;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+    
+    .topic-section-header {
+      margin-bottom: 16px;
+    }
+    
+    .topic-section-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #333333;
+      margin: 0;
+      padding: 0;
+    }
+    
+    [data-theme="dark"] .topic-section-title {
+      color: #ffffff;
+    }
+    
+    .topic-section-divider {
+      height: 1px;
+      background: #e5e5e5;
+      margin: 0 0 16px 0;
+    }
+    
+    [data-theme="dark"] .topic-section-divider {
+      background: #404040;
+    }
+    
+    .topic-section-content {
+      /* 内容区域样式 */
+    }
+  </style>
+
+
+
+  <div id="topic-card-container">
+    <div class="topic-grid"
+         th:if="${theme.config.topicCard != null && !#lists.isEmpty(theme.config.topicCard.items)}">
+      <div class="topic-card"
+           th:each="item : ${theme.config.topicCard.items}"
+           th:onclick="'window.location.href=\'' + ${item.link} + '\';'">
+        <div class="card-image-wrapper">
+          <img th:src="${item.imageUrl}" alt="" class="card-image"/>
+          <div class="image-overlay"></div>
+        </div>
+        <div class="card-content">
+          <h3 class="card-title" th:text="${item.title}">专题标题</h3>
+          <span class="article-count"
+                th:text="${item.articleCount + '篇'}">0篇</span>
+        </div>
+      </div>
+    </div>
+    <p th:if="${theme.config.topicCard == null || #lists.isEmpty(theme.config.topicCard.items)}">
+      暂无专题卡片
+    </p>
+    <div style="margin-bottom: 40px;"></div>
+  </div>
+
+  
+
+  <script>
+
+  </script>
+</th:block>
+
+
+
