@@ -1,0 +1,3 @@
+[submodule "workplace/themes/hao-recreate"]
+	path = workplace/themes/hao-recreate
+	url = https://gitlab.qiniu.io/User-Group/info-back.git
